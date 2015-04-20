@@ -1,12 +1,16 @@
 import jadex.base.Starter;
+import jadex.bridge.IComponentIdentifier;
 import jadex.bridge.IExternalAccess;
 import jadex.bridge.service.RequiredServiceInfo;
 import jadex.bridge.service.search.SServiceProvider;
+import jadex.bridge.service.types.cms.CreationInfo;
 import jadex.bridge.service.types.cms.IComponentManagementService;
 import jadex.commons.future.IFuture;
 import jadex.commons.future.ThreadSuspendable;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by jorgelima on 19-04-2015.
@@ -35,6 +39,16 @@ public class init {
 
 
         cms = SServiceProvider.getService(platform.getServiceProvider(), IComponentManagementService.class, RequiredServiceInfo.SCOPE_PLATFORM).get(sus);
+
+        String name = "Agent " + Integer.toString(1);
+        Map<String, Object> agentArgs = new HashMap<String, Object>();
+
+
+
+
+        CreationInfo SellerInfo = new CreationInfo(agentArgs);
+
+        IComponentIdentifier cid = cms.createComponent(name, "DummyAgent.class", SellerInfo).getFirstResult(sus);
     }
 
 }
